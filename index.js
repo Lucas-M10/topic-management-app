@@ -10,6 +10,9 @@ const PORT = 3000;
 // Le indicamos a Express que usaremos EJS como motor de plantillas 
 app.set ('view engine', 'ejs')
 
+// Configuramos la carpeta de archivos estaticos
+app.use (express.static ('public'));
+
 //4. Definimos nuestra primera ruta donde escuchara el servidor 
 app.get ('/', (req, res) => {
     res.render ('index: ',
