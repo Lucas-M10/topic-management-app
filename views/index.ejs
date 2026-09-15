@@ -3,13 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Challenge 8</title>
-    <link rel=""stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>
-        <%= titulo %>
-    </h1>
-    <p><%=mensaje</p>
-</body>
-</html>
+    <h1><%= titulo%></h1>
+    <p><%= mensaje%></p>
 
+    <% if (topics.length == 0) { %> 
+        <p> No hay temas registrados todavia. </p> <% } 
+
+        else { %> 
+        <!-- El contenedor padre se abre una sola vez fuera del bucle  -->
+        <ul> 
+            <% topics.forEach (topic => { %>
+                <!-- El item se repite N veces dentro del bucle -->
+                <li>
+                    <h2><%= topic.title %></h2>
+                    <p><%= topic.description %></p>
+                    <strong> Votos: <%= topic.votes %></strong>
+
+                    <form action = "/topics/<%= topic.id %>/vote" method="POST" class="vote-form" >
+                        <button type="submit" class="btn">Votar </button>
+                    </form>
+
+                    <form action="/topics/<%= topic.id %>/delete" method = "POST" style="display: inline; margin-left: 5px;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    
+                    <!--El contenedor que tendra los links vinculados a un tema. -->
+                    <div class="links-section">
+                        <h3>Recursos y Enlaces:</h3>
+                        <% if (!topic.links || topic.links.length === 0) { %>
+                            <p style="font-size: 0.9em; color: #666;">No hay enlaces agregados aun.</p>
+                        <% } else { %>
+                            <ul>
+                                <% topic.links.forEach (link => { %>
+                                    <li style="margin-bottom: 8px;">
+                                        <span><%= link.title%> - <strong>Votos: <%= link.votes %></strong></span>
+                                        
+                                        <!--Boton para poder votar por los links-->
+                                        <form action="/topics/<%=topic.id%>/links/<%=link.id%>/vote" method="POST" style="display: inline; margin-left: 8px;">
+                                            <button type="submit" class="btn btn-sm">Vote</button>
+                                        </form>
+                                        
+                                        <!--Boton para eliminar los links-->
+                                        <form action="/topics/<%=topic.id %>/links/<%=link.id%>/delete" method="POST" style="display: inline; margin-left: 4px;">
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </li>
+                                 <% }); %>
+                            </ul>
+                        <% } %>
+                    </div>
+                </li>
+            <%}); %>
+        </ul>
+    <% } %>
+    <section>
+        <h2>Crear un nuevo tema </h2>
+        <form action="/topics" method="POST" class="topic-form">
+            <div class="form-group">
+                <label for=" title">Titulo:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group"> 
+                <label for="description"> Descripcion:</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn">Agregar Tema</button>
+        </form> 
+    </section>
+    
+</body>
+
+</html>
