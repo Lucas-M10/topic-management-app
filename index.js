@@ -88,6 +88,7 @@ app.post ('/topics/:topicID/links/:linkID/vote', (req, res) => {
     res.redirect ('/');
 });
 
+// Ruta que se encarga de eliminar los links asociados a los temas 
 app.post ('/topics/:topicID/links/:linkID/delete', (req, res) => {
     const {topicID, linkID} = req.params;
 
@@ -98,6 +99,52 @@ app.post ('/topics/:topicID/links/:linkID/delete', (req, res) => {
     }
 
     res.redirect ('/');
+});
+
+//Ruta para agregar un nuevo recurso a un tema especifico 
+app.post ('/topics/:topicID/links', (req, res) => {
+    const topicID = req.params.topicID;
+    const data = req.body ;
+
+    const newLink = Topic.addLinks(topicID, data);
+
+    if (!newLink){
+        console.warn (`No se pudo agregar el recurso: tema ${topicID} no encontrado`);
+    }
+
+    res.redirect ('/');
+});
+
+
+app.get('/topics/:topicID/edit', (req, res)=> {
+
+    const topicID = req.params.topicID;
+    const topic = Topic.getById (topicID);
+
+    if (!topic){
+        console.warn (
+            `Intento de edicion fallido: ${topicID} no encontrado`
+        );
+
+        return res.redirect('/')
+        
+    }
+
+    res.render ('edit', {topic});
+});
+
+app.post ('/topics/:topicID/edit', (req, res) => {
+    const {topicID} = req.params;
+    const data = req.body;
+
+    const updateTopic = Topic.update (topicID, data);
+
+    if(!updateTopic){
+        console.warn (
+            `No se pudo actualizar el recurso: Id: ${topicID} no encontrado`
+        );
+    }
+    res.redirect ('/')
 });
 
 //5. Ponemos el servidor a escuchar peticiones

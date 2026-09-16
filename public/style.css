@@ -98,5 +98,12 @@ strong {
     border-radius: 3px;
 }
 
+.btn-update {
+    background-color: #49a222;
+}
+.btn-update:hover{
+    background-color: #397f1b;
+}
+
 
 

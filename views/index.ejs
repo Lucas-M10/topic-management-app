@@ -22,14 +22,21 @@
                     <p><%= topic.description %></p>
                     <strong> Votos: <%= topic.votes %></strong>
 
+                    <!--Boton que nos permite votar por el tema -->
                     <form action = "/topics/<%= topic.id %>/vote" method="POST" class="vote-form" >
                         <button type="submit" class="btn">Votar </button>
                     </form>
 
+                    <!--Boton que nos permite eliminar el tema-->
                     <form action="/topics/<%= topic.id %>/delete" method = "POST" style="display: inline; margin-left: 5px;">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     
+                    <!--Boton para poder editar el tema-->
+                    <form action="/topics/<%= topic.id %>/edit" method="GET" style="display: inline; margin-left: 5px;">
+                        <button type="submit" class="btn btn-update">Editar</button>
+                    </form>      
+
                     <!--El contenedor que tendra los links vinculados a un tema. -->
                     <div class="links-section">
                         <h3>Recursos y Enlaces:</h3>
@@ -45,15 +52,27 @@
                                         <form action="/topics/<%=topic.id%>/links/<%=link.id%>/vote" method="POST" style="display: inline; margin-left: 8px;">
                                             <button type="submit" class="btn btn-sm">Vote</button>
                                         </form>
-                                        
+
                                         <!--Boton para eliminar los links-->
                                         <form action="/topics/<%=topic.id %>/links/<%=link.id%>/delete" method="POST" style="display: inline; margin-left: 4px;">
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
+
+
                                     </li>
                                  <% }); %>
                             </ul>
                         <% } %>
+                        <!-- Formulario para agregar un nuevo enlace al tema actual-->
+                        <form action="/topics/<%=topic.id %>/links" method="POST" style="margin-top: 10px;">
+                            <input 
+                                    type="text"
+                                    name="title"
+                                    placeholder=" Nuevo Recurso o enlace"
+                                    required
+                                    style="padding: 4px 8px; font-size: 0.85rem;">
+                            <button type="submit" class="btn btn-sm">Agregar Enlace</button>
+                        </form>
                     </div>
                 </li>
             <%}); %>

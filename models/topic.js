@@ -23,9 +23,24 @@ let topics = [
 ];
 
 class Topic {
+    
     //Retorna todos los temas ordenados de mayor a menor segun los votos 
     static getAll (){
-        return [...topics].sort ((item_a, item_b)=> item_b.votes - item_a.votes);
+        return [...topics]
+        .sort ((item_a, item_b)=> item_b.votes - item_a.votes)
+        .map (topic => {
+            return {
+                ...topic,
+                links: topic.links// condicion
+                ? [...topic.links].sort((linkA, linkB)=> linkB.votes - linkA.votes)//valor si es verdadero
+                : [] //valor si es falso
+            };
+        });
+    }
+
+    //Se encarga de buscar por id
+    static getById (topicID){
+        return topics.find (t => t.id === Number (topicID)) || null;
     }
     
     //Metodo donde creamos los temas 
@@ -90,6 +105,43 @@ class Topic {
         }
         topic.links.splice (linkIndex, 1);
         return true;
+    }
+
+    //Se encarga de agregar los enlaces a un tema especifico 
+    static addLinks (topicID, { title }){
+        const topic = topics.find (t => t.id === Number(topicID));
+
+        if (!topic){
+            return null;
+        }
+
+        if (!topic.links){
+            topic.links = [];
+        }
+
+        const newLink = {
+            id: Date.now (),
+            title,
+            votes: 0
+        };
+
+        topic.links.push (newLink);
+        return newLink;
+    }
+
+    //Se encarga de modificar los temas 
+    static update (topicID, {title, description}){
+        const topic = topics.find (t => t.id === Number (topicID));
+
+        if (!topic){
+            return null;
+        }
+
+        //Actualizamos solo si envian datos validos
+        if (title != undefined) topic.title = title;
+        if (description != undefined) topic.description = description;
+
+        return topic;
     }
 }
 
