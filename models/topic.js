@@ -37,11 +37,6 @@ class Topic {
             };
         });
     }
-
-    //Se encarga de buscar por id
-    static getById (topicID){
-        return topics.find (t => t.id === Number (topicID)) || null;
-    }
     
     //Metodo donde creamos los temas 
     static create ({title, description}){
@@ -138,8 +133,8 @@ class Topic {
         }
 
         //Actualizamos solo si envian datos validos
-        if (title != undefined) topic.title = title;
-        if (description != undefined) topic.description = description;
+        if (title !== undefined) topic.title = title;
+        if (description !== undefined) topic.description = description;
 
         return topic;
     }

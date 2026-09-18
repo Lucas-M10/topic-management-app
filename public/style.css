@@ -17,9 +17,43 @@ strong {
     color: #000000;
 }
 
+/* Centrar y limitar el ancho total de la aplicacion*/
+.main-container {
+    max-width: 800px;   /* Ancho maximo ideal para una lectura comoda*/
+    margin: 0 auto;     /* Centra automaticamente a la izquierda y derecha */
+    padding: 20px;      /* Espacio interno para el contenido no pegue contra los bordes */
+}
+
+
+/* Quitar vinetas por defecto y separar la lista general*/
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Convertir cada tema en una tarjeta individual con bien aire */
+ul > li,
+.create-topic-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Espaciado del grupo de votacion y acciones del tema */
+.topic-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+}
+
 /*Contenedor del formulario: ancho maximo y disposicion */
 .topic-form {
-    max-width: 400px; /*Evita que los campos s eestiren de forma desmedida */
+    width: 100%;
+    max-width: 100%; /*Evita que los campos s eestiren de forma desmedida */
     display: flex;
     flex-direction: column;
     gap: 15px; /* Espacio uniforme entre los bloques del formulario */
@@ -78,14 +112,14 @@ strong {
 }
 
 /*Seccion de enlaces de cada tema*/
-.links-seccion {
+.links-section {
     margin-top: 12px;
     margin-left: 15px;
     padding-left: 10px;
     border-left: 2px solid #e0e0e0;
 }
 
-.links-seccion h3 {
+.links-section h3 {
     margin: 8px 0;
     color: #555;
     font-size: 1rem;
@@ -98,6 +132,7 @@ strong {
     border-radius: 3px;
 }
 
+/*Modifica el boton de editar*/
 .btn-update {
     background-color: #49a222;
 }
@@ -105,5 +140,8 @@ strong {
     background-color: #397f1b;
 }
 
-
+/*Utilizamos para alternar visibilidad en la edicion inline*/
+.is-hidden {
+    display: none !important;
+}
 
