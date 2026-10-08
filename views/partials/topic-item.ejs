@@ -1,0 +1,45 @@
+<li>
+    <div id="topic-view-<%= topic.id %>">
+        <h2><%= topic.title %></h2>
+        <p><%= topic.description %></p>
+        <div class="topic-actions">
+            <strong>Votos: <%=topic.votes %></strong>
+
+            <button type="button" class="btn" onclick="voteTopic('<%= topic.id %>')">Vote</button>
+            <button type="button" class="btn btn-danger" onclick="deleteTopic('<%= topic.id %>')">Delete</button>
+            <button type="button" class="btn btn-update" onclick="toggleEdit('topic-view-<%= topic.id %>', 'topic-edit-<%= topic.id %>')" style="margin-left: 5px;">
+                Edit
+            </button>
+        </div>
+    </div>
+
+    <!--El formulario de edicion de los temas-->
+    <div id="topic-edit-<%= topic.id %>" class="is-hidden" style="margin-bottom: 15px;">
+        <form class="topic-form" onsubmit="event.preventDefault (); updateTopic ('<%= topic.id %>')">
+            <div class="form-group">
+                <label for="title-<%= topic.id %>">Title: </label>
+                <input type="text" id="title-<%= topic.id %>" required>
+            </div>
+            <div class="form-group">
+                <label for="desc-<%= topic.id %>">Description: </label>
+                <textarea id="desc-<%= topic.id %>" name="description" rows="3" required><%= topic.description %> </textarea>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="submit" class="btn">keep changes</button>
+                <button type="button" class="btn btn-danger" onclick="toggleEdit('topic-view-<%= topic.id %>', 'topic-edit-<%= topic.id %>')">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!--Seccion que se encarga de los enlaces. -->
+    <div class="links-section">
+        <h3>Resources and links: </h3>
+        <%- include ('link-list', {links: topic.links, topicID: topic.id}) %>
+
+        <!--Formulario para agregar un nuevo enlace. -->
+        <form style="margin-top: 10px;" onsubmit="event.preventDefault(); addLink ('<%=topic.id %>')">
+            <input type="text" id="new-link-<%= topic.id %>" placeholder=" New Resource or link" required style="padding: 4px 8px; font-size: 0.85rem;">
+            <button type="submit" class="btn btn-sm">Add link</button>
+        </form>
+    </div>
+</li>

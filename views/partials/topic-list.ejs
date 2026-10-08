@@ -1,0 +1,10 @@
+<!--Caso vacio si no hay temas -->
+<% if (topics.length === 0) { %>
+    <p> No hay temas registrados todavia. </p>
+<% } else { %>
+    <ul>
+        <% topics.forEach (topic => { %>
+            <%- include('topic-item', { topic: topic }) %>
+        <% }); %>
+    </ul>
+<% } %>

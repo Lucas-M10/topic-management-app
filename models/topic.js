@@ -24,7 +24,7 @@ let topics = [
 
 class Topic {
     
-    //Retorna todos los temas ordenados de mayor a menor segun los votos 
+    //Retorna todos los temas y tambien se ordena los enlaces de mayor a menor segun los votos 
     static getAll (){
         return [...topics]
         .sort ((item_a, item_b)=> item_b.votes - item_a.votes)
@@ -137,6 +137,28 @@ class Topic {
         if (description !== undefined) topic.description = description;
 
         return topic;
+    }
+
+    //Se encarga de editar los enlaces de los temas 
+    static updateLinks (topicID, linkID, {title}){
+
+        const topic = topics.find ( t => t.id === Number (topicID));
+
+        if (!topic || !topic.links){
+            return null;
+        }
+
+        const link = topic.links.find (l => l.id === Number (linkID));
+
+        if (!link){
+            return null;
+        }
+
+        if (title !== undefined){
+            link.title = title;
+        }
+
+        return link;
     }
 }
 

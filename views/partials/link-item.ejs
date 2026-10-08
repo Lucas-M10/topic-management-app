@@ -1,0 +1,19 @@
+<!--Mostrar un enlace -->
+<li style="margin-bottom: 8px;">
+    <div id="link-view-<%= topicID %>-<%= link.id %>">
+        <span><%= link.title %> - <strong>Votos: <%= link.votes %></strong></span>
+
+        <button type="button" class="btn btn-sm" onclick="voteLink('<%= topicID %>', '<%= link.id %>')">Vote</button>
+        <button type="button" class="btn btn-sm btn-update" onclick="toggleEdit('link-view-<%= topicID %>-<%= link.id %>', 'link-edit-<%= topicID %>-<%= link.id %>')">Edit</button>
+        <button type="button" class="btn btn-sm btn-danger" onclick="deleteLink('<%= topicID %>', '<%= link.id %>')">Delete</button>
+    </div>
+
+    <!--Formulario para editar los links-->
+    <div id="link-edit-<%= topicID %>-<%= link.id %>" class="is-hidden" style="margin-top: 6px;">
+        <form style="display: flex; gap: 8px; align-items: center;" onsubmit="event.preventDefault(); updateLink('<%= topicID %>', '<%= link.id %>')">
+            <input type="text" id="link-title-<%= topicID %>-<%= link.id %>" value="<%= link.title %>" required style="padding: 4px 8px; font-size: 0.85rem;">
+            <button type="submit" class="btn btn-sm">Kepp</button>
+            <button type="button" class="btn btn-sm btn-danger" onclick="toggleEdit('link-view-<%= topicID %>-<%= link.id %>', 'link-edit-<%= topicID %>-<%= link.id %>')">Cancel</button>
+        </form>
+    </div>
+</li>

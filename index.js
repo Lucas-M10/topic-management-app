@@ -9,12 +9,10 @@ app.set ('view engine', 'ejs')
 
 // Permite que se pueda interpretar los datos enviados desde el html.
 app.use (express.urlencoded ({extended: true}));
+app.use (express.json ());
 
 //3. Definimos el puerto de red
 const PORT = 3000;
-
-// Importamos el Modelo que contiene los datos y los metodos
-const Topic = require ('./models/topic');
 
 // Configuramos la carpeta de archivos estaticos
 app.use (express.static ('public'));

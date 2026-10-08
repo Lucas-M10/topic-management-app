@@ -1,0 +1,10 @@
+<!--Recorre los enlaces de un tema y delega cada uno a "link-item". -->
+<% if (!links  || links.length === 0) { %>
+    <p style="font-size: 0.9em; color: #666;">No links added yet.</p>
+    <% } else { %>
+        <ul>
+            <% links.forEach ( link => { %>
+                <%- include ('link-item', {link: link, topicID: topicID}) %>
+             <% }); %>
+        </ul>
+    <%} %>
